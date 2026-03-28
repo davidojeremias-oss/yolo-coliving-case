@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YOLO Coliving</title>
+</head>
+<style>
+  body {
+    font-family: Arial;
+    background: #f4f6f8;
+    padding: 20px;
+  }
+
+  h1 {
+    color: #333;
+  }
+
+  button {
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    background: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #45a049;
+  }
+
+  select, input {
+    padding: 8px;
+    margin: 5px;
+  }
+
+  .card {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  }
+</style>
+<body>
+
+<h1>YOLO - Pessoas</h1>
+
+<button onclick="importar()">Importar Dados</button>
+
+<br><br>
+
+<select id="tipo">
+  <option value="">Todos</option>
+  <option value="hospede">Hóspede</option>
+  <option value="proprietario">Proprietário</option>
+  <option value="operador">Operador</option>
+  <option value="fornecedor">Fornecedor</option>
+</select>
+
+<button onclick="filtrar()">Filtrar</button>
+<button onclick="adicionar()">+ Adicionar</button>
+
+<div id="lista"></div>
+
+<script>
+
+async function importar() {
+  await fetch("http://localhost:3000/importar");
+  listar();
+}
+
+async function listar() {
+  const res = await fetch("http://localhost:3000/pessoas");
+  const dados = await res.json();
+
+  mostrar(dados);
+}
+
+async function filtrar() {
+  const tipo = document.getElementById("tipo").value;
+
+  const res = await fetch(`http://localhost:3000/pessoas?tipo=${tipo}`);
+  const dados = await res.json();
+
+  mostrar(dados);
+}
+
+function mostrar(dados) {
+  const lista = document.getElementById("lista");
+  lista.innerHTML = "";
+
+  dados.forEach(p => {
+    lista.innerHTML += `
+      <div class="card">
+        <h3>${p.nome}</h3>
+        <p><b>Tipo:</b> ${p.tipo}</p>
+        <p><b>Email:</b> ${p.email || "-"}</p>
+        <p><b>Telefone:</b> ${p.telefone || "-"}</p>
+        <p><b>Data:</b> ${p.dataCadastro || "-"}</p>
+        <button onclick="excluir(${p.id})">Excluir</button>
+        <button onclick='editar(${JSON.stringify(p)})'>Editar</button>
+      </div>
+    `;
+  });
+}
+
+async function adicionar() {
+  const nome = prompt("Nome:");
+  const tipo = prompt("Tipo (hospede, proprietario...)");
+  const email = prompt("Email:");
+  const telefone = prompt("Telefone:");
+
+  const dataCadastro = new Date().toISOString().split("T")[0];
+
+  await fetch("http://localhost:3000/pessoas", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      nome,
+      tipo,
+      email,
+      telefone,
+      dataCadastro
+    })
+  });
+
+  listar();
+}
+
+async function excluir(id) {
+  const confirmar = confirm("Tem certeza que deseja excluir?");
+
+  if (!confirmar) return; // ❌ cancela se clicar em "Cancelar"
+
+  await fetch(`http://localhost:3000/pessoas/${id}`, {
+    method: "DELETE"
+  });
+
+  atualizarLista();
+}
+
+async function editar(pessoa) {
+  const nome = prompt("Novo nome:", pessoa.nome);
+  if (nome === null) return;
+
+  const tipo = prompt("Novo tipo:", pessoa.tipo);
+  if (tipo === null) return;
+
+  const email = prompt("Novo email:", pessoa.email);
+  if (email === null) return;
+
+  const telefone = prompt("Novo telefone:", pessoa.telefone);
+  if (telefone === null) return;
+
+  const dataCadastro = pessoa.dataCadastro;
+
+  const res = await fetch(`http://localhost:3000/pessoas/${pessoa.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      nome,
+      tipo,
+      email,
+      telefone,
+      dataCadastro
+    })
+  });
+
+  const data = await res.json();
+  console.log("Atualizado:", data);
+
+  atualizarLista();
+}
+
+function atualizarLista() {
+  const tipo = document.getElementById("tipo").value;
+
+  if (tipo) {
+    filtrar();
+  } else {
+    listar();
+  }
+}
+</script>
+
+</body>
+</html>
