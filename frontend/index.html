@@ -1,191 +1,358 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>YOLO Coliving</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 8px 12px;
+      margin: 5px;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    select {
+      padding: 8px;
+      margin: 5px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .acoes {
+      margin-top: 10px;
+    }
+
+    .vazio {
+      color: #666;
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    .status {
+      margin-top: 15px;
+      padding: 10px;
+      background: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: 6px;
+      color: #856404;
+    }
+  </style>
 </head>
-<style>
-  body {
-    font-family: Arial;
-    background: #f4f6f8;
-    padding: 20px;
-  }
-
-  h1 {
-    color: #333;
-  }
-
-  button {
-    padding: 8px 12px;
-    margin: 5px;
-    border: none;
-    background: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background: #45a049;
-  }
-
-  select, input {
-    padding: 8px;
-    margin: 5px;
-  }
-
-  .card {
-    background: white;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 10px;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-  }
-</style>
 <body>
 
-<h1>YOLO - Pessoas</h1>
+  <h1>YOLO - Pessoas</h1>
 
-<button onclick="importar()">Importar Dados</button>
+  <button onclick="importar()">Importar Dados</button>
 
-<br><br>
+  <br><br>
 
-<select id="tipo">
-  <option value="">Todos</option>
-  <option value="hospede">Hóspede</option>
-  <option value="proprietario">Proprietário</option>
-  <option value="operador">Operador</option>
-  <option value="fornecedor">Fornecedor</option>
-</select>
+  <select id="tipo">
+    <option value="">Todos</option>
+    <option value="hospede">Hóspede</option>
+    <option value="proprietario">Proprietário</option>
+    <option value="operador">Operador</option>
+    <option value="fornecedor">Fornecedor</option>
+  </select>
 
-<button onclick="filtrar()">Filtrar</button>
-<button onclick="adicionar()">+ Adicionar</button>
+  <button onclick="filtrar()">Filtrar</button>
+  <button onclick="adicionar()">+ Adicionar</button>
 
-<div id="lista"></div>
+  <div id="status" class="status">Carregando...</div>
+  <div id="lista"></div>
 
-<script>
+  <script>
+    const API_URL = "https://g3siujnt86.execute-api.sa-east-1.amazonaws.com";
+    let pessoasCache = [];
 
-async function importar() {
-  await fetch("http://localhost:3000/importar");
-  listar();
-}
+    function setStatus(texto) {
+      document.getElementById("status").innerText = texto;
+    }
 
-async function listar() {
-  const res = await fetch("http://localhost:3000/pessoas");
-  const dados = await res.json();
+    async function importar() {
+      try {
+        setStatus("Importando dados...");
+        const res = await fetch(`${API_URL}/importar`);
+        const dados = await res.json();
 
-  mostrar(dados);
-}
+        console.log("IMPORTAR:", dados);
 
-async function filtrar() {
-  const tipo = document.getElementById("tipo").value;
+        if (!res.ok) {
+          setStatus("Erro ao importar dados.");
+          alert(dados.message || "Erro ao importar dados.");
+          return;
+        }
 
-  const res = await fetch(`http://localhost:3000/pessoas?tipo=${tipo}`);
-  const dados = await res.json();
+        alert(`${dados.message}. Total importado: ${dados.total}`);
+        await listar();
+      } catch (error) {
+        console.error("Erro ao importar:", error);
+        setStatus("Erro ao importar dados.");
+        alert("Erro ao importar dados.");
+      }
+    }
 
-  mostrar(dados);
-}
+    async function listar() {
+      try {
+        setStatus("Carregando pessoas...");
+        const res = await fetch(`${API_URL}/pessoas`);
+        const dados = await res.json();
 
-function mostrar(dados) {
-  const lista = document.getElementById("lista");
-  lista.innerHTML = "";
+        console.log("LISTAR:", dados);
 
-  dados.forEach(p => {
-    lista.innerHTML += `
-      <div class="card">
-        <h3>${p.nome}</h3>
-        <p><b>Tipo:</b> ${p.tipo}</p>
-        <p><b>Email:</b> ${p.email || "-"}</p>
-        <p><b>Telefone:</b> ${p.telefone || "-"}</p>
-        <p><b>Data:</b> ${p.dataCadastro || "-"}</p>
-        <button onclick="excluir(${p.id})">Excluir</button>
-        <button onclick='editar(${JSON.stringify(p)})'>Editar</button>
-      </div>
-    `;
-  });
-}
+        if (!res.ok) {
+          setStatus("Erro ao listar pessoas.");
+          alert("Erro ao listar pessoas.");
+          return;
+        }
 
-async function adicionar() {
-  const nome = prompt("Nome:");
-  const tipo = prompt("Tipo (hospede, proprietario...)");
-  const email = prompt("Email:");
-  const telefone = prompt("Telefone:");
+        if (!Array.isArray(dados)) {
+          console.error("Resposta não é array:", dados);
+          setStatus("A resposta da API não veio no formato esperado.");
+          return;
+        }
 
-  const dataCadastro = new Date().toISOString().split("T")[0];
+        pessoasCache = dados;
+        mostrar(dados);
+        setStatus(`Total de pessoas carregadas: ${dados.length}`);
+      } catch (error) {
+        console.error("Erro ao listar:", error);
+        setStatus("Erro ao carregar pessoas.");
+        alert("Erro ao carregar pessoas.");
+      }
+    }
 
-  await fetch("http://localhost:3000/pessoas", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      nome,
-      tipo,
-      email,
-      telefone,
-      dataCadastro
-    })
-  });
+    async function filtrar() {
+      try {
+        const tipo = document.getElementById("tipo").value;
+        setStatus("Filtrando pessoas...");
 
-  listar();
-}
+        const res = await fetch(`${API_URL}/pessoas`);
+        const dados = await res.json();
 
-async function excluir(id) {
-  const confirmar = confirm("Tem certeza que deseja excluir?");
+        console.log("FILTRAR:", dados);
 
-  if (!confirmar) return; // ❌ cancela se clicar em "Cancelar"
+        if (!res.ok) {
+          setStatus("Erro ao filtrar pessoas.");
+          alert("Erro ao filtrar pessoas.");
+          return;
+        }
 
-  await fetch(`http://localhost:3000/pessoas/${id}`, {
-    method: "DELETE"
-  });
+        if (!Array.isArray(dados)) {
+          console.error("Resposta não é array:", dados);
+          setStatus("A resposta da API não veio no formato esperado.");
+          return;
+        }
 
-  atualizarLista();
-}
+        pessoasCache = dados;
 
-async function editar(pessoa) {
-  const nome = prompt("Novo nome:", pessoa.nome);
-  if (nome === null) return;
+        if (tipo) {
+          const filtrados = dados.filter(p => p.tipo === tipo);
+          mostrar(filtrados);
+          setStatus(`Filtro aplicado. Total encontrado: ${filtrados.length}`);
+        } else {
+          mostrar(dados);
+          setStatus(`Mostrando todas as pessoas: ${dados.length}`);
+        }
+      } catch (error) {
+        console.error("Erro ao filtrar:", error);
+        setStatus("Erro ao filtrar pessoas.");
+        alert("Erro ao filtrar pessoas.");
+      }
+    }
 
-  const tipo = prompt("Novo tipo:", pessoa.tipo);
-  if (tipo === null) return;
+    function mostrar(dados) {
+      const lista = document.getElementById("lista");
+      lista.innerHTML = "";
 
-  const email = prompt("Novo email:", pessoa.email);
-  if (email === null) return;
+      if (!dados || dados.length === 0) {
+        lista.innerHTML = `<p class="vazio">Nenhuma pessoa encontrada.</p>`;
+        return;
+      }
 
-  const telefone = prompt("Novo telefone:", pessoa.telefone);
-  if (telefone === null) return;
+      dados.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
 
-  const dataCadastro = pessoa.dataCadastro;
+        card.innerHTML = `
+          <h3>${p.nome || "-"}</h3>
+          <p><b>Tipo:</b> ${p.tipo || "-"}</p>
+          <p><b>Email:</b> ${p.email || "-"}</p>
+          <p><b>Telefone:</b> ${p.telefone || "-"}</p>
+          <p><b>Data:</b> ${p.dataCadastro || "-"}</p>
+          <div class="acoes">
+            <button onclick="excluir('${p.id}')">Excluir</button>
+            <button onclick="editarPorId('${p.id}')">Editar</button>
+          </div>
+        `;
 
-  const res = await fetch(`http://localhost:3000/pessoas/${pessoa.id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      nome,
-      tipo,
-      email,
-      telefone,
-      dataCadastro
-    })
-  });
+        lista.appendChild(card);
+      });
+    }
 
-  const data = await res.json();
-  console.log("Atualizado:", data);
+    function editarPorId(id) {
+      const pessoa = pessoasCache.find(p => p.id === id);
 
-  atualizarLista();
-}
+      if (!pessoa) {
+        alert("Pessoa não encontrada.");
+        return;
+      }
 
-function atualizarLista() {
-  const tipo = document.getElementById("tipo").value;
+      editar(pessoa);
+    }
 
-  if (tipo) {
-    filtrar();
-  } else {
+    async function adicionar() {
+      try {
+        const nome = prompt("Nome:");
+        if (nome === null) return;
+
+        const tipo = prompt("Tipo (hospede, proprietario, operador, fornecedor):");
+        if (tipo === null) return;
+
+        const email = prompt("Email:");
+        if (email === null) return;
+
+        const telefone = prompt("Telefone:");
+        if (telefone === null) return;
+
+        const dataCadastro = new Date().toISOString().split("T")[0];
+
+        setStatus("Adicionando pessoa...");
+
+        const res = await fetch(`${API_URL}/pessoas`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nome,
+            tipo,
+            email,
+            telefone,
+            dataCadastro
+          })
+        });
+
+        const dados = await res.json();
+        console.log("POST:", dados);
+
+        if (!res.ok) {
+          setStatus("Erro ao adicionar pessoa.");
+          alert(dados.message || "Erro ao adicionar pessoa.");
+          return;
+        }
+
+        await listar();
+      } catch (error) {
+        console.error("Erro ao adicionar:", error);
+        setStatus("Erro ao adicionar pessoa.");
+        alert("Erro ao adicionar pessoa.");
+      }
+    }
+
+    async function excluir(id) {
+      try {
+        const confirmar = confirm("Tem certeza que deseja excluir?");
+        if (!confirmar) return;
+
+        setStatus("Excluindo pessoa...");
+
+        const res = await fetch(`${API_URL}/pessoas/${id}`, {
+          method: "DELETE"
+        });
+
+        const dados = await res.json();
+        console.log("DELETE:", dados);
+
+        if (!res.ok) {
+          setStatus("Erro ao excluir pessoa.");
+          alert(dados.message || "Erro ao excluir pessoa.");
+          return;
+        }
+
+        await listar();
+      } catch (error) {
+        console.error("Erro ao excluir:", error);
+        setStatus("Erro ao excluir pessoa.");
+        alert("Erro ao excluir pessoa.");
+      }
+    }
+
+    async function editar(pessoa) {
+      try {
+        const nome = prompt("Novo nome:", pessoa.nome || "");
+        if (nome === null) return;
+
+        const tipo = prompt("Novo tipo:", pessoa.tipo || "");
+        if (tipo === null) return;
+
+        const email = prompt("Novo email:", pessoa.email || "");
+        if (email === null) return;
+
+        const telefone = prompt("Novo telefone:", pessoa.telefone || "");
+        if (telefone === null) return;
+
+        const dataCadastro = pessoa.dataCadastro || new Date().toISOString().split("T")[0];
+
+        setStatus("Atualizando pessoa...");
+
+        const res = await fetch(`${API_URL}/pessoas/${pessoa.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nome,
+            tipo,
+            email,
+            telefone,
+            dataCadastro
+          })
+        });
+
+        const dados = await res.json();
+        console.log("PUT:", dados);
+
+        if (!res.ok) {
+          setStatus("Erro ao editar pessoa.");
+          alert(dados.message || "Erro ao editar pessoa.");
+          return;
+        }
+
+        await listar();
+      } catch (error) {
+        console.error("Erro ao editar:", error);
+        setStatus("Erro ao editar pessoa.");
+        alert("Erro ao editar pessoa.");
+      }
+    }
+
     listar();
-  }
-}
-</script>
+  </script>
 
 </body>
 </html>
