@@ -24,9 +24,7 @@
       --radius: 18px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -39,10 +37,7 @@
       min-height: 100vh;
     }
 
-    .app-shell {
-      min-height: 100vh;
-      padding: 26px;
-    }
+    .app-shell { min-height: 100vh; padding: 26px; }
 
     .dashboard {
       display: grid;
@@ -62,404 +57,226 @@
       padding: 28px 20px;
     }
 
-    .brand {
-      font-size: 34px;
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin: 6px 0 28px;
-    }
+    .brand { font-size: 34px; font-weight: 800; letter-spacing: -1px; margin: 6px 0 28px; }
+    .brand span { color: var(--accent); }
+    .sidebar-subtitle { color: var(--muted); font-size: 13px; margin-bottom: 26px; }
 
-    .brand span {
-      color: var(--accent);
-    }
-
-    .sidebar-subtitle {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 26px;
-    }
-
-    .nav-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .nav-group { display: flex; flex-direction: column; gap: 10px; }
 
     .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--muted);
-      padding: 14px 16px;
-      border-radius: 14px;
-      border: 1px solid transparent;
-      background: transparent;
-      font-size: 16px;
+      display: flex; align-items: center; gap: 12px;
+      color: var(--muted); padding: 14px 16px; border-radius: 14px;
+      border: 1px solid transparent; background: transparent; font-size: 16px;
     }
 
     .nav-item.active {
       background: rgba(88, 240, 208, 0.12);
       border-color: rgba(88, 240, 208, 0.12);
-      color: var(--accent);
-      font-weight: 700;
+      color: var(--accent); font-weight: 700;
     }
 
-    .nav-icon {
-      width: 18px;
-      text-align: center;
-    }
+    .nav-icon { width: 18px; text-align: center; }
 
     .sidebar-footer {
-      margin-top: 34px;
-      padding: 16px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
+      margin-top: 34px; padding: 16px; border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border);
+      color: var(--muted); font-size: 13px; line-height: 1.5;
     }
 
-    .content {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
+    .content { display: flex; flex-direction: column; min-width: 0; }
 
     .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      padding: 24px 28px;
-      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 18px; padding: 24px 28px; border-bottom: 1px solid var(--border);
       background: rgba(14, 37, 73, 0.68);
     }
 
-    .topbar-title h1 {
-      margin: 0 0 8px;
-      font-size: 38px;
-      line-height: 1;
-      letter-spacing: -1px;
-    }
+    .topbar-title h1 { margin: 0 0 8px; font-size: 38px; line-height: 1; letter-spacing: -1px; }
+    .topbar-title p { margin: 0; color: var(--muted); font-size: 14px; }
 
-    .topbar-title p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .user-badge {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 15px;
-    }
+    .user-badge { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 15px; }
 
     .avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
+      width: 42px; height: 42px; border-radius: 50%;
       border: 1px solid rgba(88, 240, 208, 0.5);
       background: rgba(88, 240, 208, 0.08);
     }
 
-    .main {
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
+    .main { padding: 28px; display: flex; flex-direction: column; gap: 22px; }
 
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
+    .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 
     .metric-card {
       background: linear-gradient(180deg, rgba(20, 47, 91, 0.96) 0%, rgba(15, 40, 78, 0.96) 100%);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 20px;
-      min-height: 132px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+      border: 1px solid var(--border); border-radius: 18px; padding: 20px;
+      min-height: 132px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
     }
 
-    .metric-label {
-      color: var(--muted);
-      font-size: 15px;
-      margin-bottom: 10px;
-    }
+    .metric-label { color: var(--muted); font-size: 15px; margin-bottom: 10px; }
+    .metric-value { font-size: 48px; font-weight: 800; line-height: 1; margin-bottom: 8px; letter-spacing: -1px; }
+    .metric-foot { color: var(--accent); font-size: 14px; font-weight: 700; }
 
-    .metric-value {
-      font-size: 48px;
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 8px;
-      letter-spacing: -1px;
-    }
-
-    .metric-foot {
-      color: var(--accent);
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .toolbar-card,
-    .table-card {
+    .toolbar-card, .table-card {
       background: linear-gradient(180deg, rgba(15, 40, 78, 0.96) 0%, rgba(12, 34, 66, 0.96) 100%);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 22px;
+      border: 1px solid var(--border); border-radius: 20px; padding: 22px;
     }
 
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: center;
-    }
-
-    .toolbar-left {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .toolbar-right {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-    }
+    .toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; align-items: center; }
+    .toolbar-left { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .toolbar-right { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
     .search-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 320px;
-      padding: 0 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      height: 48px;
+      display: flex; align-items: center; gap: 10px; min-width: 320px;
+      padding: 0 14px; background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border); border-radius: 14px; height: 48px;
     }
 
-    .search-box input,
-    select {
-      width: 100%;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: var(--text);
-      font-size: 15px;
+    .search-box input, select {
+      width: 100%; border: none; outline: none;
+      background: transparent; color: var(--text); font-size: 15px;
     }
 
     select {
-      padding: 0 14px;
-      height: 48px;
-      min-width: 170px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.03);
-      cursor: pointer;
+      padding: 0 14px; height: 48px; min-width: 170px;
+      border: 1px solid var(--border); border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03); cursor: pointer;
     }
 
-    select option {
-      color: #111;
-    }
+    select option { color: #111; }
 
     button {
-      border: none;
-      cursor: pointer;
-      border-radius: 14px;
-      padding: 13px 18px;
-      font-size: 15px;
-      font-weight: 700;
-      transition: 0.18s ease;
+      border: none; cursor: pointer; border-radius: 14px;
+      padding: 13px 18px; font-size: 15px; font-weight: 700; transition: 0.18s ease;
     }
 
     .btn-primary {
-      background: var(--accent);
-      color: #07263b;
+      background: var(--accent); color: #07263b;
       box-shadow: 0 8px 20px rgba(88, 240, 208, 0.22);
     }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-    }
+    .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.03); }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
+      background: rgba(255, 255, 255, 0.05); color: var(--text);
       border: 1px solid var(--border);
     }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.08);
-    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.08); }
 
     .btn-danger {
-      background: rgba(255, 107, 107, 0.12);
-      color: #ffb2b2;
+      background: rgba(255, 107, 107, 0.12); color: #ffb2b2;
       border: 1px solid rgba(255, 107, 107, 0.18);
     }
 
     .btn-edit {
-      background: rgba(124, 92, 255, 0.12);
-      color: #c8bcff;
+      background: rgba(124, 92, 255, 0.12); color: #c8bcff;
       border: 1px solid rgba(124, 92, 255, 0.18);
     }
 
     .status {
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: var(--warning-bg);
-      border: 1px solid var(--warning-border);
-      color: var(--warning-text);
-      font-size: 14px;
+      padding: 12px 14px; border-radius: 14px;
+      background: var(--warning-bg); border: 1px solid var(--warning-border);
+      color: var(--warning-text); font-size: 14px;
     }
 
     .table-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 18px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 14px; margin-bottom: 18px;
     }
+    .table-header h2 { margin: 0; font-size: 30px; letter-spacing: -0.5px; }
+    .table-header span { color: var(--muted); font-size: 14px; }
 
-    .table-header h2 {
-      margin: 0;
-      font-size: 30px;
-      letter-spacing: -0.5px;
-    }
+    .table-wrap { overflow-x: auto; }
 
-    .table-header span {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 760px;
-    }
+    table { width: 100%; border-collapse: collapse; min-width: 860px; }
 
     thead th {
-      text-align: left;
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 700;
-      padding: 16px 14px;
-      border-bottom: 1px solid var(--border);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      text-align: left; font-size: 13px; color: var(--muted); font-weight: 700;
+      padding: 16px 14px; border-bottom: 1px solid var(--border);
+      text-transform: uppercase; letter-spacing: 0.05em;
     }
 
     tbody td {
-      padding: 18px 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 18px 14px; border-bottom: 1px solid rgba(255,255,255,0.05);
       vertical-align: middle;
     }
 
-    tbody tr:hover {
-      background: rgba(255,255,255,0.025);
-    }
+    tbody tr:hover { background: rgba(255,255,255,0.025); }
 
-    .person-name {
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .muted {
-      color: var(--muted);
-    }
+    .person-name { font-weight: 700; color: var(--text); }
+    .muted { color: var(--muted); }
 
     .tag {
-      display: inline-flex;
-      align-items: center;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(88, 240, 208, 0.10);
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: capitalize;
+      display: inline-flex; align-items: center; padding: 7px 10px;
+      border-radius: 999px; background: rgba(88, 240, 208, 0.10);
+      color: var(--accent); font-size: 12px; font-weight: 700; text-transform: capitalize;
     }
 
-    .row-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .row-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-    .empty-state {
-      padding: 28px 14px 12px;
-      color: var(--muted);
-      text-align: center;
-    }
+    .empty-state { padding: 28px 14px 12px; color: var(--muted); text-align: center; }
 
     .footer-line {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: 14px;
+      display: flex; justify-content: space-between; gap: 12px;
+      align-items: center; margin-top: 16px; color: var(--muted); font-size: 14px;
     }
 
+    /* ── Quarto input ── */
+    .quarto-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quarto-input {
+      width: 72px;
+      background: rgba(88, 240, 208, 0.06);
+      border: 1px solid rgba(88, 240, 208, 0.18);
+      border-radius: 10px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 7px 10px;
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .quarto-input:focus {
+      border-color: var(--accent);
+      background: rgba(88, 240, 208, 0.12);
+    }
+
+    .quarto-input::placeholder {
+      color: rgba(155, 176, 209, 0.45);
+      font-weight: 400;
+    }
+
+    .btn-quarto-clear {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 14px;
+      padding: 4px 6px;
+      border-radius: 8px;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.15s;
+      line-height: 1;
+    }
+
+    .btn-quarto-clear:hover { opacity: 1; color: var(--danger); }
+
     @media (max-width: 1100px) {
-      .dashboard {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .metrics {
-        grid-template-columns: 1fr;
-      }
+      .dashboard { grid-template-columns: 1fr; }
+      .sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+      .metrics { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 760px) {
-      .app-shell {
-        padding: 12px;
-      }
-
-      .topbar,
-      .main {
-        padding: 18px;
-      }
-
-      .topbar-title h1 {
-        font-size: 30px;
-      }
-
-      .search-box {
-        min-width: 100%;
-      }
-
-      .toolbar-left,
-      .toolbar-right,
-      .toolbar {
-        width: 100%;
-      }
-
-      .toolbar-right > * {
-        width: 100%;
-      }
+      .app-shell { padding: 12px; }
+      .topbar, .main { padding: 18px; }
+      .topbar-title h1 { font-size: 30px; }
+      .search-box { min-width: 100%; }
+      .toolbar-left, .toolbar-right, .toolbar { width: 100%; }
+      .toolbar-right > * { width: 100%; }
     }
   </style>
 </head>
@@ -496,7 +313,6 @@
             <h1>Pessoas</h1>
             <p>Gestão, importação e manutenção de registros do coliving.</p>
           </div>
-
           <div class="user-badge">
             <span>Admin User</span>
             <div class="avatar"></div>
@@ -510,13 +326,11 @@
               <div class="metric-value" id="totalPessoas">0</div>
               <div class="metric-foot">Registros carregados</div>
             </div>
-
             <div class="metric-card">
               <div class="metric-label">Tipos cadastrados</div>
               <div class="metric-value" id="totalTipos">0</div>
               <div class="metric-foot">Categorias encontradas</div>
             </div>
-
             <div class="metric-card">
               <div class="metric-label">Última ação</div>
               <div class="metric-value" id="ultimaAcao" style="font-size: 22px; line-height: 1.2;">Inicializando</div>
@@ -531,7 +345,6 @@
                   <span>🔎</span>
                   <input type="text" id="busca" placeholder="Buscar por nome, email ou telefone" />
                 </div>
-
                 <select id="tipo">
                   <option value="">Todos os tipos</option>
                   <option value="hospede">Hóspede</option>
@@ -540,14 +353,12 @@
                   <option value="fornecedor">Fornecedor</option>
                 </select>
               </div>
-
               <div class="toolbar-right">
                 <button class="btn-secondary" onclick="filtrar()">Filtrar</button>
                 <button class="btn-secondary" onclick="importar()">Importar dados</button>
                 <button class="btn-primary" onclick="adicionar()">+ Adicionar pessoa</button>
               </div>
             </div>
-
             <div id="status" class="status" style="margin-top: 18px;">Carregando...</div>
           </section>
 
@@ -558,9 +369,7 @@
                 <span>Visualização dinâmica conectada à API</span>
               </div>
             </div>
-
             <div id="lista"></div>
-
             <div class="footer-line">
               <span id="rodapeInfo">Mostrando 0 registros</span>
               <span>YOLO Coliving</span>
@@ -576,6 +385,38 @@
     let pessoasCache = [];
     let pessoasVisiveis = [];
 
+    // ── Quarto: localStorage helpers ──────────────────────────────────────────
+
+    function getQuartos() {
+      try { return JSON.parse(localStorage.getItem("yolo_quartos") || "{}"); }
+      catch { return {}; }
+    }
+
+    function getQuarto(id) {
+      return getQuartos()[id] || "";
+    }
+
+    function salvarQuarto(id, valor) {
+      const quartos = getQuartos();
+      if (valor.trim() === "") {
+        delete quartos[id];
+      } else {
+        quartos[id] = valor.trim();
+      }
+      localStorage.setItem("yolo_quartos", JSON.stringify(quartos));
+    }
+
+    function limparQuarto(id) {
+      const quartos = getQuartos();
+      delete quartos[id];
+      localStorage.setItem("yolo_quartos", JSON.stringify(quartos));
+      // atualiza o input na tela sem re-renderizar tudo
+      const input = document.querySelector(`.quarto-input[data-id="${id}"]`);
+      if (input) input.value = "";
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+
     function setStatus(texto) {
       document.getElementById("status").innerText = texto;
       document.getElementById("ultimaAcao").innerText = texto;
@@ -583,12 +424,8 @@
 
     function atualizarMetricas(lista) {
       document.getElementById("totalPessoas").innerText = lista.length;
-
-      const tiposUnicos = new Set(
-        lista.map(p => (p.tipo || "").trim()).filter(Boolean)
-      );
+      const tiposUnicos = new Set(lista.map(p => (p.tipo || "").trim()).filter(Boolean));
       document.getElementById("totalTipos").innerText = tiposUnicos.size;
-
       document.getElementById("rodapeInfo").innerText = `Mostrando ${lista.length} registro(s)`;
     }
 
@@ -597,13 +434,7 @@
         setStatus("Importando dados...");
         const res = await fetch(`${API_URL}/importar`);
         const dados = await res.json();
-
-        if (!res.ok) {
-          setStatus("Erro ao importar dados.");
-          alert(dados.message || "Erro ao importar dados.");
-          return;
-        }
-
+        if (!res.ok) { setStatus("Erro ao importar dados."); alert(dados.message || "Erro ao importar dados."); return; }
         alert(`${dados.message}. Total importado: ${dados.total}`);
         await listar();
         setStatus(`Importação concluída: ${dados.total} registro(s)`);
@@ -619,19 +450,8 @@
         setStatus("Carregando pessoas...");
         const res = await fetch(`${API_URL}/pessoas`);
         const dados = await res.json();
-
-        if (!res.ok) {
-          setStatus("Erro ao listar pessoas.");
-          alert("Erro ao listar pessoas.");
-          return;
-        }
-
-        if (!Array.isArray(dados)) {
-          console.error("Resposta não é array:", dados);
-          setStatus("A resposta da API não veio no formato esperado.");
-          return;
-        }
-
+        if (!res.ok) { setStatus("Erro ao listar pessoas."); alert("Erro ao listar pessoas."); return; }
+        if (!Array.isArray(dados)) { setStatus("A resposta da API não veio no formato esperado."); return; }
         pessoasCache = dados;
         aplicarFiltrosLocais();
         setStatus(`Total de pessoas carregadas: ${dados.length}`);
@@ -650,28 +470,19 @@
       } catch (error) {
         console.error("Erro ao filtrar:", error);
         setStatus("Erro ao filtrar pessoas.");
-        alert("Erro ao filtrar pessoas.");
       }
     }
 
     function aplicarFiltrosLocais() {
       const tipo = document.getElementById("tipo").value.trim().toLowerCase();
       const termo = document.getElementById("busca").value.trim().toLowerCase();
-
       let resultado = [...pessoasCache];
-
-      if (tipo) {
-        resultado = resultado.filter(p => (p.tipo || "").toLowerCase() === tipo);
-      }
-
-      if (termo) {
-        resultado = resultado.filter(p =>
-          (p.nome || "").toLowerCase().includes(termo) ||
-          (p.email || "").toLowerCase().includes(termo) ||
-          (p.telefone || "").toLowerCase().includes(termo)
-        );
-      }
-
+      if (tipo) resultado = resultado.filter(p => (p.tipo || "").toLowerCase() === tipo);
+      if (termo) resultado = resultado.filter(p =>
+        (p.nome || "").toLowerCase().includes(termo) ||
+        (p.email || "").toLowerCase().includes(termo) ||
+        (p.telefone || "").toLowerCase().includes(termo)
+      );
       pessoasVisiveis = resultado;
       mostrar(resultado);
       atualizarMetricas(resultado);
@@ -695,6 +506,7 @@
                 <th>E-mail</th>
                 <th>Telefone</th>
                 <th>Data</th>
+                <th>Quarto</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -702,6 +514,7 @@
       `;
 
       dados.forEach(p => {
+        const quartoAtual = getQuarto(p.id);
         html += `
           <tr>
             <td><span class="person-name">${p.nome || "-"}</span></td>
@@ -709,6 +522,21 @@
             <td class="muted">${p.email || "-"}</td>
             <td class="muted">${p.telefone || "-"}</td>
             <td class="muted">${p.dataCadastro || "-"}</td>
+            <td>
+              <div class="quarto-wrap">
+                <input
+                  type="text"
+                  class="quarto-input"
+                  data-id="${p.id}"
+                  value="${quartoAtual}"
+                  placeholder="Nº"
+                  maxlength="10"
+                  onchange="salvarQuarto('${p.id}', this.value)"
+                  title="Número do quarto (salvo localmente)"
+                />
+                ${quartoAtual ? `<button class="btn-quarto-clear" onclick="limparQuarto('${p.id}')" title="Limpar quarto">✕</button>` : ""}
+              </div>
+            </td>
             <td>
               <div class="row-actions">
                 <button class="btn-edit" onclick="editarPorId('${p.id}')">Editar</button>
@@ -719,23 +547,13 @@
         `;
       });
 
-      html += `
-            </tbody>
-          </table>
-        </div>
-      `;
-
+      html += `</tbody></table></div>`;
       lista.innerHTML = html;
     }
 
     function editarPorId(id) {
       const pessoa = pessoasCache.find(p => p.id === id);
-
-      if (!pessoa) {
-        alert("Pessoa não encontrada.");
-        return;
-      }
-
+      if (!pessoa) { alert("Pessoa não encontrada."); return; }
       editar(pessoa);
     }
 
@@ -743,42 +561,21 @@
       try {
         const nome = prompt("Nome:");
         if (nome === null) return;
-
         const tipo = prompt("Tipo (hospede, proprietario, operador, fornecedor):");
         if (tipo === null) return;
-
         const email = prompt("Email:");
         if (email === null) return;
-
         const telefone = prompt("Telefone:");
         if (telefone === null) return;
-
         const dataCadastro = new Date().toISOString().split("T")[0];
-
         setStatus("Adicionando pessoa...");
-
         const res = await fetch(`${API_URL}/pessoas`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            nome,
-            tipo,
-            email,
-            telefone,
-            dataCadastro
-          })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, tipo, email, telefone, dataCadastro })
         });
-
         const dados = await res.json();
-
-        if (!res.ok) {
-          setStatus("Erro ao adicionar pessoa.");
-          alert(dados.message || "Erro ao adicionar pessoa.");
-          return;
-        }
-
+        if (!res.ok) { setStatus("Erro ao adicionar pessoa."); alert(dados.message || "Erro ao adicionar pessoa."); return; }
         await listar();
         setStatus("Pessoa adicionada com sucesso.");
       } catch (error) {
@@ -792,21 +589,12 @@
       try {
         const confirmar = confirm("Tem certeza que deseja excluir?");
         if (!confirmar) return;
-
         setStatus("Excluindo pessoa...");
-
-        const res = await fetch(`${API_URL}/pessoas/${id}`, {
-          method: "DELETE"
-        });
-
+        const res = await fetch(`${API_URL}/pessoas/${id}`, { method: "DELETE" });
         const dados = await res.json();
-
-        if (!res.ok) {
-          setStatus("Erro ao excluir pessoa.");
-          alert(dados.message || "Erro ao excluir pessoa.");
-          return;
-        }
-
+        if (!res.ok) { setStatus("Erro ao excluir pessoa."); alert(dados.message || "Erro ao excluir pessoa."); return; }
+        // remove o quarto salvo localmente junto com a pessoa
+        limparQuarto(id);
         await listar();
         setStatus("Pessoa excluída com sucesso.");
       } catch (error) {
@@ -820,42 +608,21 @@
       try {
         const nome = prompt("Novo nome:", pessoa.nome || "");
         if (nome === null) return;
-
         const tipo = prompt("Novo tipo:", pessoa.tipo || "");
         if (tipo === null) return;
-
         const email = prompt("Novo email:", pessoa.email || "");
         if (email === null) return;
-
         const telefone = prompt("Novo telefone:", pessoa.telefone || "");
         if (telefone === null) return;
-
         const dataCadastro = pessoa.dataCadastro || new Date().toISOString().split("T")[0];
-
         setStatus("Atualizando pessoa...");
-
         const res = await fetch(`${API_URL}/pessoas/${pessoa.id}`, {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            nome,
-            tipo,
-            email,
-            telefone,
-            dataCadastro
-          })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, tipo, email, telefone, dataCadastro })
         });
-
         const dados = await res.json();
-
-        if (!res.ok) {
-          setStatus("Erro ao editar pessoa.");
-          alert(dados.message || "Erro ao editar pessoa.");
-          return;
-        }
-
+        if (!res.ok) { setStatus("Erro ao editar pessoa."); alert(dados.message || "Erro ao editar pessoa."); return; }
         await listar();
         setStatus("Pessoa atualizada com sucesso.");
       } catch (error) {
